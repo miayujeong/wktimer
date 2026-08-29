@@ -12,44 +12,34 @@ const resultMinutes = computed(() =>
 </script>
 
 <template>
-  <div class="section">
-
-    <!-- Start time (shared) -->
-    <div class="card">
-      <div class="row-between">
-        <span class="card-label">start time</span>
-        <input v-model="workday.startTimeStr" type="time" class="time-input" />
-      </div>
+  <div class="rows">
+    <div class="row">
+      <span class="k">start</span>
+      <span class="v"><input v-model="workday.startTimeStr" class="inp t" type="time" /></span>
     </div>
-
-    <!-- Non-work time (shared) -->
-    <div class="card">
-      <div class="row-between">
-        <span class="card-label">non-work time</span>
-        <div class="input-row">
-          <input v-model.number="workday.nonWorkHours" type="number" min="0" class="num-input" />
-          <span class="unit">H</span>
-          <input v-model.number="workday.nonWorkMins" type="number" min="0" max="59" class="num-input" />
-          <span class="unit">M</span>
-        </div>
-      </div>
+    <div class="row">
+      <span class="k">away</span>
+      <span class="v">
+        <input v-model.number="workday.nonWorkHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
+        <input v-model.number="workday.nonWorkMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+      </span>
     </div>
-
-    <!-- Expected end time -->
-    <div class="card">
-      <div class="row-between">
-        <span class="card-label">expected end time</span>
-        <input v-model="endTimeStr" type="time" class="time-input" />
-      </div>
+    <div class="row">
+      <span class="k">leave at</span>
+      <span class="v"><input v-model="endTimeStr" class="inp t" type="time" /></span>
     </div>
+  </div>
 
-    <!-- Result (auto-computed) -->
-    <div class="result-card">
-      <div class="result-row">
-        <span class="result-label">work time if leave at {{ endTimeStr }}</span>
-        <span class="result-value accent">{{ formatMinsEn(resultMinutes) }}</span>
-      </div>
+  <hr class="rule" />
+
+  <div class="rows">
+    <div class="row">
+      <span class="k">worked</span>
+      <span class="v key">{{ formatMinsEn(resultMinutes) }}</span>
     </div>
-
+    <div class="row">
+      <span class="k">note</span>
+      <span class="note">day ends {{ endTimeStr }}</span>
+    </div>
   </div>
 </template>

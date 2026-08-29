@@ -93,9 +93,7 @@ export function formatMinutes(total: number): string {
 /** "XXH XXM" English format */
 export function formatMinsEn(total: number): string {
   const { hours, minutes } = splitMinutes(total)
-  if (hours === 0) return `${minutes}M`
-  if (minutes === 0) return `${hours}H`
-  return `${hours}H ${minutes}M`
+  return `${hours}H ${String(minutes).padStart(2, '0')}M`
 }
 
 /** Asia/Seoul 기준 오늘 날짜를 Date로 반환 (시·분·초 = 0) */

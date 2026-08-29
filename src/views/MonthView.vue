@@ -57,65 +57,72 @@ const isLoading = computed(() => settingsLoading.value || holidaysLoading.value)
 </script>
 
 <template>
-  <div class="section">
-    <div v-if="isLoading" class="loading-text">Loading...</div>
-    <template v-else>
+  <div v-if="isLoading" class="note">loading</div>
 
-      <!-- Goal worktime -->
-      <div class="card">
-        <div v-if="!editing" class="row-between">
-          <span class="card-label">
-            {{ yearMonth }} goal worktime:&nbsp;&nbsp;&nbsp;
-            <span class="value-large">
-              {{ standardMinutes !== null ? formatMinsEn(standardMinutes) : '--' }}
-            </span>
-          </span>
-          <button class="btn-text" @click="startEdit">Edit</button>
-        </div>
-        <div v-else class="input-row">
-          <span class="card-label">{{ yearMonth }} goal worktime:</span>
-          <input v-model.number="editHours" type="number" min="0" max="400" class="num-input" />
-          <span class="unit">H</span>
-          <button class="btn-primary sm" :disabled="settingsLoading" @click="saveSetting">Save</button>
-          <button class="btn-text" @click="editing = false">Cancel</button>
-        </div>
-        <p v-if="settingsError" class="error">{{ settingsError }}</p>
+  <template v-else>
+    <div class="rows">
+
+      <div class="row">
+        <span class="k">period</span>
+        <span class="v">{{ yearMonth }}</span>
       </div>
 
-      <!-- Worktime till yesterday -->
-      <div class="card">
-        <div class="row-between">
-          <span class="card-label">worktime till yesterday:</span>
-          <div class="input-row">
-            <input v-model.number="workedHours" type="number" min="0" class="num-input" />
-            <span class="unit">H</span>
-            <input v-model.number="workedMins" type="number" min="0" max="59" class="num-input" />
-            <span class="unit">M</span>
-          </div>
-        </div>
+      <!-- goal: 보기 -->
+      <div v-if="!editing" class="row">
+        <span class="k">goal</span>
+        <span class="v">{{ standardMinutes !== null ? formatMinsEn(standardMinutes) : '--' }}</span>
+        <button class="act" @click="startEdit">edit</button>
       </div>
 
-      <!-- Results -->
-      <div v-if="standardMinutes === null" class="hint">
-        Please enter and save the goal worktime first.
-      </div>
-      <div v-else-if="result" class="result-card">
-        <div class="result-row">
-          <span class="result-label">remaining worktime:</span>
-          <span class="result-value" :class="{ exceeded: result.monthly.isExceeded }">
-            {{ result.monthly.isExceeded ? 'Goal achieved! 🎉' : formatMinsEn(result.monthly.remainingMinutes) }}
-          </span>
-        </div>
-        <div class="result-row">
-          <span class="result-label">avg. worktime per day:</span>
-          <span class="result-value">
-            <template v-if="result.monthly.isExceeded">—</template>
-            <template v-else-if="result.daily.noWorkdaysLeft">no workdays left</template>
-            <template v-else>{{ formatMinsEn(result.daily.minutesPerDay) }}</template>
-          </span>
-        </div>
+      <!-- goal: 편집 -->
+      <div v-else class="row">
+        <span class="k">goal</span>
+        <span class="v">
+          <input v-model.number="editHours" class="inp n" type="number" min="0" max="400" /><span class="unit">h</span>
+        </span>
+        <span>
+          <button class="act" :disabled="settingsLoading" @click="saveSetting">save</button>
+          <button class="act" @click="editing = false">cancel</button>
+        </span>
       </div>
 
-    </template>
-  </div>
+      <div class="row">
+        <span class="k">logged</span>
+        <span class="v">
+          <input v-model.number="workedHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
+          <input v-model.number="workedMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+        </span>
+      </div>
+
+    </div>
+
+    <p v-if="settingsError" class="err">{{ settingsError }}</p>
+
+    <hr class="rule" />
+
+    <div v-if="standardMinutes === null" class="note">
+      set a goal above to see what is left
+    </div>
+
+    <div v-else-if="result" class="rows">
+      <div class="row">
+        <span class="k">remaining</span>
+        <span class="v key" :class="{ exceeded: result.monthly.isExceeded }">
+          {{ result.monthly.isExceeded ? 'goal met' : formatMinsEn(result.monthly.remainingMinutes) }}
+        </span>
+      </div>
+      <div class="row">
+        <span class="k">workdays</span>
+        <span class="v">{{ remainingWorkdays }} left this month</span>
+      </div>
+      <div class="row">
+        <span class="k">per day</span>
+        <span class="v key">
+          <template v-if="result.monthly.isExceeded">--</template>
+          <template v-else-if="result.daily.noWorkdaysLeft">no workdays left</template>
+          <template v-else>{{ formatMinsEn(result.daily.minutesPerDay) }}</template>
+        </span>
+      </div>
+    </div>
+  </template>
 </template>

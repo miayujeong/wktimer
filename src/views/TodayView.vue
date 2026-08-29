@@ -16,43 +16,31 @@ function calculate() {
 </script>
 
 <template>
-  <div class="section">
-
-    <!-- Start time -->
-    <div class="card">
-      <div class="row-between">
-        <span class="card-label">start time</span>
-        <input v-model="workday.startTimeStr" type="time" class="time-input" />
-      </div>
+  <div class="rows">
+    <div class="row">
+      <span class="k">start</span>
+      <span class="v"><input v-model="workday.startTimeStr" class="inp t" type="time" /></span>
     </div>
-
-    <!-- Non-work time -->
-    <div class="card">
-      <div class="row-between">
-        <span class="card-label">non-work time (lunch, etc.)</span>
-        <div class="input-row">
-          <input v-model.number="workday.nonWorkHours" type="number" min="0" class="num-input" />
-          <span class="unit">H</span>
-          <input v-model.number="workday.nonWorkMins" type="number" min="0" max="59" class="num-input" />
-          <span class="unit">M</span>
-        </div>
-      </div>
+    <div class="row">
+      <span class="k">away</span>
+      <span class="v">
+        <input v-model.number="workday.nonWorkHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
+        <input v-model.number="workday.nonWorkMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+      </span>
     </div>
+  </div>
 
-    <!-- Calculate button -->
-    <button class="btn-primary full" @click="calculate">Calculate Now</button>
+  <hr class="rule" />
 
-    <!-- Results -->
-    <div v-if="resultMinutes !== null" class="result-card">
-      <div class="result-row">
-        <span class="result-label">reference time</span>
-        <span class="result-value">{{ calcTime }}</span>
-      </div>
-      <div class="result-row">
-        <span class="result-label">today's work time</span>
-        <span class="result-value accent">{{ formatMinsEn(resultMinutes) }}</span>
-      </div>
+  <div class="rows">
+    <div class="row">
+      <span class="k">as of</span>
+      <span class="v">{{ calcTime ?? '--:--' }}</span>
+      <button class="act" @click="calculate">read clock</button>
     </div>
-
+    <div class="row">
+      <span class="k">worked</span>
+      <span class="v key">{{ resultMinutes !== null ? formatMinsEn(resultMinutes) : '--' }}</span>
+    </div>
   </div>
 </template>
