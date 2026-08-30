@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useWorkdayStore } from '../stores/workday'
+import TimeField from '../components/TimeField.vue'
 import { calcWorkMinutes, formatMinsEn, parseTime } from '../utils/worktime'
 
 const workday = useWorkdayStore()
@@ -15,7 +16,7 @@ const resultMinutes = computed(() =>
   <div class="rows">
     <div class="row">
       <span class="k">start</span>
-      <span class="v"><input v-model="workday.startTimeStr" class="inp t" type="time" /></span>
+      <span class="v"><TimeField v-model="workday.startTimeStr" /></span>
     </div>
     <div class="row">
       <span class="k">away</span>
@@ -26,7 +27,7 @@ const resultMinutes = computed(() =>
     </div>
     <div class="row">
       <span class="k">leave at</span>
-      <span class="v"><input v-model="endTimeStr" class="inp t" type="time" /></span>
+      <span class="v"><TimeField v-model="endTimeStr" /></span>
     </div>
   </div>
 

@@ -142,8 +142,20 @@ hr.rule.soft { border-top-color: var(--rule-soft); }
 .inp[type=number] { -moz-appearance: textfield; appearance: textfield; }
 
 .inp.n { width: 4ch; }
-.inp.t { width: 7ch; text-align: left; }
 .inp.wide { width: 100%; text-align: left; }
+
+/* 시각 입력(HH:MM): 두 칸을 한 줄의 밑줄로 묶기 */
+.tf {
+  display: inline-flex;
+  align-items: baseline;
+  border-bottom: 1px dotted var(--dim);
+  padding-bottom: 1px;
+}
+.tf:hover, .tf:focus-within { border-bottom-color: var(--phosphor); }
+.tf .inp { border-bottom: 0; padding: 0; }
+.tf .inp.h { width: 2ch; text-align: right; }
+.tf .inp.m { width: 2ch; text-align: left; }
+.tf .sep { color: var(--value); padding: 0 0.1ch; }
 
 .unit { color: var(--dim); }
 

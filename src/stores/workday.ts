@@ -4,7 +4,7 @@ import { parseTime } from '../utils/worktime'
 
 // 출근시각·비근무시간은 기능 2(오늘)·3(시뮬레이션)이 공유
 export const useWorkdayStore = defineStore('workday', () => {
-  const startTimeStr = ref('09:00') // <input type="time"> v-model용
+  const startTimeStr = ref('09:00') // TimeField v-model용 "HH:MM"
   const nonWorkHours = ref(1)
   const nonWorkMins = ref(0)
 
