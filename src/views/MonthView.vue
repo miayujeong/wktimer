@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useSettings } from '../composables/useSettings'
 import { useHolidays } from '../composables/useHolidays'
+import { useWorkdayStore } from '../stores/workday'
 import {
   getTodaySeoul,
   getCurrentYearMonth,
@@ -19,8 +20,7 @@ const { holidayDates, loading: holidaysLoading, fetchHolidays } = useHolidays()
 
 const editing = ref(false)
 const editHours = ref(0)
-const workedHours = ref(0)
-const workedMins = ref(0)
+const workday = useWorkdayStore()
 
 onMounted(async () => {
   await Promise.all([fetchSettings(yearMonth), fetchHolidays(yearMonth)])
@@ -47,7 +47,7 @@ const remainingWorkdays = computed(() =>
 
 const result = computed(() => {
   if (standardMinutes.value === null) return null
-  const workedTotal = workedHours.value * 60 + workedMins.value
+  const workedTotal = workday.workedHours * 60 + workday.workedMins
   const monthly = calcMonthlyRemaining(standardMinutes.value, workedTotal)
   const daily = calcDailyAverage(monthly.remainingMinutes, remainingWorkdays.value)
   return { monthly, daily }
@@ -89,8 +89,8 @@ const isLoading = computed(() => settingsLoading.value || holidaysLoading.value)
       <div class="row">
         <span class="k">logged</span>
         <span class="v">
-          <input v-model.number="workedHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
-          <input v-model.number="workedMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+          <input v-model.number="workday.workedHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
+          <input v-model.number="workday.workedMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
         </span>
       </div>
 
