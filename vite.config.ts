@@ -11,8 +11,8 @@ export default defineConfig({
         name: '근무시간 계산기',
         short_name: 'WkTimer',
         description: '근무시간 계산 도구',
-        theme_color: '#4f7cff',
-        background_color: '#ffffff',
+        theme_color: '#0b0c0d',
+        background_color: '#0b0c0d',
         display: 'standalone',
         lang: 'ko',
         icons: [
