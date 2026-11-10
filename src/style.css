@@ -26,6 +26,8 @@
   padding: 0;
 }
 
+html, body { overscroll-behavior: none; } /* 내용이 화면보다 짧을 때 튕기는 스크롤 방지 */
+
 body {
   background: var(--bg);
   color: var(--value);
@@ -36,7 +38,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#app { width: 100%; min-height: 100vh; }
+#app { width: 100%; min-height: 100vh; min-height: 100dvh; }
 [hidden] { display: none !important; }
 
 ::selection { background: var(--phosphor); color: var(--bg); }
@@ -162,6 +164,7 @@ hr.rule.soft { border-top-color: var(--rule-soft); }
    ========================================================================== */
 .login-wrap {
   min-height: 100vh;
+  min-height: 100dvh; /* 모바일 주소창·툴바를 뺀 실제 보이는 높이 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,6 +178,7 @@ hr.rule.soft { border-top-color: var(--rule-soft); }
 
 .splash {
   min-height: 100vh;
+  min-height: 100dvh; /* 모바일 주소창·툴바를 뺀 실제 보이는 높이 */
   display: flex; align-items: center; justify-content: center;
   color: var(--dim);
 }
