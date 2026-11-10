@@ -38,9 +38,5 @@ const resultMinutes = computed(() =>
       <span class="k">worked</span>
       <span class="v key">{{ formatMinsEn(resultMinutes) }}</span>
     </div>
-    <div class="row">
-      <span class="k">note</span>
-      <span class="note">day ends {{ endTimeStr }}</span>
-    </div>
   </div>
 </template>
