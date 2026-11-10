@@ -34,7 +34,6 @@ async function handleSubmit() {
 
       <div class="masthead">
         <span class="name">WKTIMER</span>
-        <span>auth<span class="caret"></span></span>
       </div>
       <hr class="rule" />
 

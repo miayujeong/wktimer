@@ -63,18 +63,6 @@ body {
 }
 .masthead .name { color: var(--value); letter-spacing: 0.14em; }
 
-.caret {
-  display: inline-block;
-  width: 0.55ch;
-  height: 1em;
-  background: var(--phosphor);
-  vertical-align: -0.12em;
-  margin-left: 0.4ch;
-  animation: blink 1.15s steps(1) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
-
 .tab-nav {
   display: flex;
   gap: 1.6ch;
