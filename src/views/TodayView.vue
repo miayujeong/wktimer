@@ -25,8 +25,8 @@ function calculate() {
     <div class="row">
       <span class="k">away</span>
       <span class="v">
-        <input v-model.number="workday.nonWorkHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
-        <input v-model.number="workday.nonWorkMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+        <input v-model.number="workday.nonWorkHours" class="inp n" type="number" @focus="($event.target as HTMLInputElement).select()" min="0" /><span class="unit">h</span>
+        <input v-model.number="workday.nonWorkMins" class="inp n" type="number" @focus="($event.target as HTMLInputElement).select()" min="0" max="59" /><span class="unit">m</span>
       </span>
     </div>
   </div>

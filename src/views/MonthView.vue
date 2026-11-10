@@ -78,7 +78,7 @@ const isLoading = computed(() => settingsLoading.value || holidaysLoading.value)
       <div v-else class="row">
         <span class="k">goal</span>
         <span class="v">
-          <input v-model.number="editHours" class="inp n" type="number" min="0" max="400" /><span class="unit">h</span>
+          <input v-model.number="editHours" class="inp n" type="number" @focus="($event.target as HTMLInputElement).select()" min="0" max="400" /><span class="unit">h</span>
         </span>
         <span>
           <button class="act" :disabled="settingsLoading" @click="saveSetting">save</button>
@@ -89,8 +89,8 @@ const isLoading = computed(() => settingsLoading.value || holidaysLoading.value)
       <div class="row">
         <span class="k">logged</span>
         <span class="v">
-          <input v-model.number="workday.workedHours" class="inp n" type="number" min="0" /><span class="unit">h</span>
-          <input v-model.number="workday.workedMins" class="inp n" type="number" min="0" max="59" /><span class="unit">m</span>
+          <input v-model.number="workday.workedHours" class="inp n" type="number" @focus="($event.target as HTMLInputElement).select()" min="0" /><span class="unit">h</span>
+          <input v-model.number="workday.workedMins" class="inp n" type="number" @focus="($event.target as HTMLInputElement).select()" min="0" max="59" /><span class="unit">m</span>
         </span>
       </div>
 
